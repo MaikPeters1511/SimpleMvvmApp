@@ -1,0 +1,55 @@
+﻿<Window x:Class="SimpleMvvmApp.Mvvm.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SimpleMvvmApp.Mvvm.View"
+        xmlns:localVM="clr-namespace:SimpleMvvmApp.Mvvm.ViewModel"
+        mc:Ignorable="d"
+        Title="SimpleMVVM App" Height="500" Width="800">
+
+    <!--Define Styles-->
+    <Window.Resources>
+        <Style x:Key="BoldTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+
+        <Style x:Key="MarginButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="0,10,0,0" />
+        </Style>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <localVM:MainViewModel />
+    </Window.DataContext>
+
+    <TabControl>
+        <TabItem Header="Start">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Vorname: " Style="{StaticResource BoldTextBlockStyle}" />
+                    <TextBlock Text="{Binding Person.FirstName}" />
+                    <TextBlock Text="Namename: " Style="{StaticResource BoldTextBlockStyle}" />
+                    <TextBlock Text="{Binding Person.LastName}" />
+                    <TextBlock Text="Kinder: " Style="{StaticResource BoldTextBlockStyle}" />
+                    <ListView x:Name="ListChoListView" ItemsSource="{Binding Person.Children}" SelectionMode="Extended"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <Button Content="Lösche Vor- und Nachname" Command="{Binding ClearName}"
+                            Style="{StaticResource MarginButtonStyle}" />
+                    <Button Content="Lösche Kindername" Command="{Binding DeleteName}"
+                            Style="{StaticResource MarginButtonStyle}">
+                        <Button.CommandParameter>
+                        <Binding Path="SelectedItems" ElementName="ListChoListView" />
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Content="Reset der Daten" Margin="0,20,0,0" Command="{Binding ResetData}" />
+                </StackPanel>
+            </Grid>
+        </TabItem>
+    </TabControl>
+</Window>
