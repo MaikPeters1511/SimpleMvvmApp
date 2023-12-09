@@ -21,7 +21,7 @@ namespace SimpleMvvmApp.Mvvm.ViewModel
         {
             person = new SimplePerson();
             ClearName = new RelayCommand(ClearNameOfPerson);;
-            DeleteName = new RelayCommand<IList>(DeleteChildFromList);;
+            DeleteName = new RelayCommand<IList>(DeleteChildFromList);
             ResetData = new RelayCommand(GenerateSampleData);
 
             GenerateSampleData();
@@ -34,16 +34,16 @@ namespace SimpleMvvmApp.Mvvm.ViewModel
             Person.Children = new ObservableCollection<string>(new List<string> { "Wilhelm", "Marie", "Herbert" });
         }
         
-        private void DeleteChildFromList(IList? obj)
+        private void DeleteChildFromList(IList? items)
         {
-            if (obj is IList<object> objectList)
-            {
-                var copyOfSelectedItems = objectList.ToList();
+            if (items == null)
+                return;
 
-                foreach (string item in copyOfSelectedItems)
-                {
-                    Person.Children.Remove(item);
-                }
+            var copyOfSelectedItems = items.Cast<string>().ToList();
+
+            foreach (var item in copyOfSelectedItems)
+            {
+                Person.Children.Remove(item);
             }
         }
     

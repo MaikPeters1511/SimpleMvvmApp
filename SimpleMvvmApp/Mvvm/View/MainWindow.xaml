@@ -36,7 +36,7 @@
                     <TextBlock Text="Namename: " Style="{StaticResource BoldTextBlockStyle}" />
                     <TextBlock Text="{Binding Person.LastName}" />
                     <TextBlock Text="Kinder: " Style="{StaticResource BoldTextBlockStyle}" />
-                    <ListView x:Name="ListChoListView" ItemsSource="{Binding Person.Children}" SelectionMode="Extended"/>
+                    <ListView x:Name="ListChoListView" ItemsSource="{Binding Person.Children}" SelectionMode="Multiple"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1">
                     <Button Content="Lösche Vor- und Nachname" Command="{Binding ClearName}"
