@@ -20,9 +20,9 @@ namespace SimpleMvvmApp.Mvvm.ViewModel
         public MainViewModel()
         {
             person = new SimplePerson();
-            ClearName = new RelayCommand(() => ClearNameOfPerson());
-            DeleteName = new RelayCommand<IList>(list => DeleteChildFromList(list));
-            ResetData = new RelayCommand(() => GenerateSampleData());
+            ClearName = new RelayCommand(ClearNameOfPerson);;
+            DeleteName = new RelayCommand<IList>(DeleteChildFromList);;
+            ResetData = new RelayCommand(GenerateSampleData);
 
             GenerateSampleData();
         }
@@ -36,11 +36,9 @@ namespace SimpleMvvmApp.Mvvm.ViewModel
         
         private void DeleteChildFromList(IList? obj)
         {
-            // Check if children is nullable or not
-            if (obj != null)
+            if (obj is IList<object> objectList)
             {
-                //ist etwas tricky
-                var copyOfSelectedItems = ((IList<object>)obj).ToList();
+                var copyOfSelectedItems = objectList.ToList();
 
                 foreach (string item in copyOfSelectedItems)
                 {
