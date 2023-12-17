@@ -20,7 +20,7 @@ namespace SimpleMvvmApp.Mvvm.ViewModel
         public MainViewModel()
         {
             person = new SimplePerson();
-            ClearName = new RelayCommand(ClearNameOfPerson);;
+            ClearName = new RelayCommand(ClearNameOfPerson);
             DeleteName = new RelayCommand<IList>(DeleteChildFromList);
             ResetData = new RelayCommand(GenerateSampleData);
 
@@ -31,7 +31,10 @@ namespace SimpleMvvmApp.Mvvm.ViewModel
         {
             Person.LastName = "Bismark";
             Person.FirstName = "Otto";
-            Person.Children = new ObservableCollection<string>(new List<string> { "Wilhelm", "Marie", "Herbert" });
+            Person.Children.Clear();
+            Person.Children.Add("Wilhelm");
+            Person.Children.Add("Marie");
+            Person.Children.Add("Herbert");
         }
         
         private void DeleteChildFromList(IList? items)
